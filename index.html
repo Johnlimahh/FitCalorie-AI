@@ -11,9 +11,9 @@
     <h1>Agrupamento de Atletas (K-Means)</h1>
 
     <div class="formulario">
-        <label>Peso (Kg): <input type="number" id="peso"></label>
-        <label>Velocidade (Km/h): <input type="number" id="velocidade"></label>
-        <label>Distância (Km): <input type="number" id="distancia"></label>
+        <label>Peso (Kg): <input type="number" id="peso" step="0.01"></label>
+        <label>Velocidade (Km/h): <input type="number" id="velocidade" step="0.01"></label>
+        <label>Distância (Km): <input type="number" id="distancia" step="0.01"></label>
         <button onclick="adicionarAtleta()">Adicionar Atleta</button>
     </div>
 
@@ -28,14 +28,14 @@
                 <th>Grupo (Cluster)</th>
             </tr>
         </thead>
-        <tbody id="tabelaAtletas"></tbody>
+        <tbody id="tabelaClusters"></tbody>
     </table>
+
+    <button onclick="realizarAgrupamento()">Identificar Grupos</button>
 
     <h2>Visualização dos Grupos</h2>
     <canvas id="graficoClusters"></canvas>
 
-    <button onclick="realizarAgrupamento()">Identificar Grupos</button>
-
-    <script src="script.js"></script>
+    <script src="nao_supervisionado.js"></script>
 </body>
 </html>
