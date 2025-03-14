@@ -3,34 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previsão de Calorias e Agrupamento de Atletas</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Agrupamento de Atletas</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h2>Cadastro de Atletas</h2>
-    <label>Peso (Kg): <input type="number" id="peso"></label>
-    <label>Velocidade (Km/h): <input type="number" id="velocidade"></label>
-    <label>Distância (Km): <input type="number" id="distancia"></label>
-    <button onclick="adicionarAtleta()">Adicionar Atleta</button>
-    <button onclick="agruparAtletas()">Agrupar Atletas</button>
+    <h1>Agrupamento de Atletas (K-Means)</h1>
 
-    <h2>Tabela de Atletas</h2>
-    <table>
+    <div class="formulario">
+        <label>Peso (Kg): <input type="number" id="peso"></label>
+        <label>Velocidade (Km/h): <input type="number" id="velocidade"></label>
+        <label>Distância (Km): <input type="number" id="distancia"></label>
+        <button onclick="adicionarAtleta()">Adicionar Atleta</button>
+    </div>
+
+    <h2>Dados dos Atletas</h2>
+    <table border="1">
         <thead>
             <tr>
-                <th>Peso (Kg)</th>
-                <th>Velocidade (Km/h)</th>
-                <th>Distância (Km)</th>
-                <th>Calorias (Kcal)</th>
-                <th>Grupo</th>
+                <th>Peso</th>
+                <th>Velocidade</th>
+                <th>Distância</th>
+                <th>Calorias</th>
+                <th>Grupo (Cluster)</th>
             </tr>
         </thead>
         <tbody id="tabelaAtletas"></tbody>
     </table>
 
-    <h2>Gráfico de Agrupamento</h2>
-    <canvas id="graficoAtletas"></canvas>
+    <h2>Visualização dos Grupos</h2>
+    <canvas id="graficoClusters"></canvas>
+
+    <button onclick="realizarAgrupamento()">Identificar Grupos</button>
 
     <script src="script.js"></script>
 </body>
