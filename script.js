@@ -1,13 +1,12 @@
 let atletas = [];
 let chart;
+let k = 3; // Número de clusters
 
-// Função para calcular calorias queimadas
 function calcularCalorias(peso, velocidade, distancia) {
-    const MET = velocidade;
+    const MET = velocidade; 
     return MET * peso * 0.0175 * (distancia / velocidade) * 60;
 }
 
-// Adicionar atleta à tabela e ao gráfico
 function adicionarAtleta() {
     const peso = parseFloat(document.getElementById("peso").value);
     const velocidade = parseFloat(document.getElementById("velocidade").value);
@@ -16,57 +15,47 @@ function adicionarAtleta() {
     if (!isNaN(peso) && !isNaN(velocidade) && !isNaN(distancia)) {
         const calorias = calcularCalorias(peso, velocidade, distancia);
         atletas.push({ peso, velocidade, distancia, calorias, grupo: null });
-
         atualizarTabela();
+        if (atletas.length >= k) agruparAtletas();
     } else {
         alert("Preencha todos os campos corretamente.");
     }
 }
 
-// Atualizar tabela com atletas e grupos
 function atualizarTabela() {
     const tabela = document.getElementById("tabelaAtletas");
     tabela.innerHTML = "";
 
-    atletas.forEach(atleta => {
+    atletas.forEach((atleta, index) => {
         const row = `<tr>
             <td>${atleta.peso} Kg</td>
             <td>${atleta.velocidade} Km/h</td>
             <td>${atleta.distancia.toFixed(2)} Km</td>
             <td>${atleta.calorias.toFixed(2)} Kcal</td>
-            <td>${atleta.grupo !== null ? `Grupo ${atleta.grupo}` : "Não Classificado"}</td>
+            <td>${atleta.grupo !== null ? `Grupo ${atleta.grupo}` : "N/A"}</td>
         </tr>`;
         tabela.innerHTML += row;
     });
 }
 
-// Algoritmo K-Means para agrupamento não supervisionado
-function kMeans(k) {
-    if (atletas.length < k) {
-        alert("Adicione mais atletas para o agrupamento.");
-        return;
-    }
-
-    let centroides = [];
-    for (let i = 0; i < k; i++) {
-        centroides.push(atletas[Math.floor(Math.random() * atletas.length)].calorias);
-    }
-
+function agruparAtletas() {
+    let centroids = atletas.slice(0, k).map(a => ({ distancia: a.distancia, calorias: a.calorias }));
     let mudou;
+
     do {
         mudou = false;
-        
-        atletas.forEach(atleta => {
-            let menorDistancia = Infinity;
-            let grupoMaisProximo = 0;
 
-            for (let i = 0; i < k; i++) {
-                let distancia = Math.abs(atleta.calorias - centroides[i]);
-                if (distancia < menorDistancia) {
-                    menorDistancia = distancia;
+        atletas.forEach(atleta => {
+            let grupoMaisProximo = 0;
+            let menorDistancia = Infinity;
+
+            centroids.forEach((centroide, i) => {
+                const dist = Math.sqrt((centroide.distancia - atleta.distancia) ** 2 + (centroide.calorias - atleta.calorias) ** 2);
+                if (dist < menorDistancia) {
+                    menorDistancia = dist;
                     grupoMaisProximo = i;
                 }
-            }
+            });
 
             if (atleta.grupo !== grupoMaisProximo) {
                 atleta.grupo = grupoMaisProximo;
@@ -74,28 +63,21 @@ function kMeans(k) {
             }
         });
 
-        let somaGrupos = Array(k).fill(0);
-        let contagemGrupos = Array(k).fill(0);
-
-        atletas.forEach(atleta => {
-            somaGrupos[atleta.grupo] += atleta.calorias;
-            contagemGrupos[atleta.grupo]++;
+        centroids = centroids.map((_, i) => {
+            const grupo = atletas.filter(a => a.grupo === i);
+            return {
+                distancia: grupo.reduce((acc, a) => acc + a.distancia, 0) / grupo.length || 0,
+                calorias: grupo.reduce((acc, a) => acc + a.calorias, 0) / grupo.length || 0
+            };
         });
-
-        for (let i = 0; i < k; i++) {
-            if (contagemGrupos[i] > 0) {
-                centroides[i] = somaGrupos[i] / contagemGrupos[i];
-            }
-        }
 
     } while (mudou);
 
     atualizarTabela();
-    atualizarGrafico(k);
+    atualizarGrafico();
 }
 
-// Atualizar gráfico com grupos formados
-function atualizarGrafico(k) {
+function atualizarGrafico() {
     const ctx = document.getElementById("graficoClusters").getContext("2d");
 
     if (chart) chart.destroy();
@@ -106,7 +88,11 @@ function atualizarGrafico(k) {
     for (let i = 0; i < k; i++) {
         datasets.push({
             label: `Grupo ${i}`,
-            data: atletas.filter(a => a.grupo === i).map(a => ({ x: a.distancia, y: a.calorias })),
+            data: atletas.filter(a => a.grupo === i).map(a => ({ 
+                x: a.distancia, 
+                y: a.calorias,
+                atleta: `Atleta ${atletas.indexOf(a) + 1} (Grupo ${i})`
+            })),
             backgroundColor: cores[i],
             borderColor: cores[i],
             pointRadius: 6
@@ -118,16 +104,19 @@ function atualizarGrafico(k) {
         data: { datasets },
         options: {
             responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.raw.atleta;
+                        }
+                    }
+                }
+            },
             scales: {
                 x: { title: { display: true, text: "Distância (Km)" } },
                 y: { title: { display: true, text: "Calorias (Kcal)" } }
             }
         }
     });
-}
-
-// Iniciar o agrupamento
-function realizarAgrupamento() {
-    const k = 3; // Definimos 3 grupos para melhor visualização
-    kMeans(k);
 }
