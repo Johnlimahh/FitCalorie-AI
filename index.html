@@ -8,34 +8,87 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Agrupamento de Atletas (K-Means)</h1>
-
-    <div class="formulario">
-        <label>Peso (Kg): <input type="number" id="peso" step="0.01"></label>
-        <label>Velocidade (Km/h): <input type="number" id="velocidade" step="0.01"></label>
-        <label>Distância (Km): <input type="number" id="distancia" step="0.01"></label>
-        <button onclick="adicionarAtleta()">Adicionar Atleta</button>
+    <div class="navbar">
+        <div class="nav-title">Sistema de Análise de Desempenho Atlético</div>
+        <div class="nav-links">
+            <a href="index.html">Previsão Supervisionada</a>
+            <a href="nao-supervisionado.html" class="active">Agrupamento Não-Supervisionado</a>
+        </div>
     </div>
 
-    <h2>Dados dos Atletas</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Peso</th>
-                <th>Velocidade</th>
-                <th>Distância</th>
-                <th>Calorias</th>
-                <th>Grupo (Cluster)</th>
-            </tr>
-        </thead>
-        <tbody id="tabelaClusters"></tbody>
-    </table>
+    <div class="container">
+        <h1>Agrupamento de Atletas (K-Means)</h1>
+        
+        <div class="card info-card">
+            <h3>Sobre o Agrupamento Não-Supervisionado</h3>
+            <p>Esta ferramenta utiliza o algoritmo K-Means para identificar automaticamente grupos de atletas com características similares, sem depender de categorias pré-definidas. Os grupos são formados baseados na relação entre distância percorrida e calorias gastas.</p>
+        </div>
 
-    <button onclick="realizarAgrupamento()">Identificar Grupos</button>
+        <div class="card form-card">
+            <h2>Dados do Atleta</h2>
+            <div class="formulario">
+                <label>Nome do Atleta: <input type="text" id="nomeAtleta"></label>
+                <label>Peso (Kg): <input type="number" id="peso" step="0.01"></label>
+                <label>Velocidade (Km/h): <input type="number" id="velocidade" step="0.01"></label>
+                <label>Distância (Km): <input type="number" id="distancia" step="0.01"></label>
+                <button onclick="adicionarAtleta()">Adicionar Atleta</button>
+                <button onclick="importarDadosSalvos()" class="btn-secondary">Importar Dados Supervisionados</button>
+            </div>
+        </div>
 
-    <h2>Visualização dos Grupos</h2>
-    <canvas id="graficoClusters"></canvas>
+        <div class="card settings-card">
+            <h2>Configuração de Agrupamento</h2>
+            <div class="cluster-settings">
+                <label>Número de Grupos (K): 
+                    <select id="numeroGrupos">
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </label>
+                <button onclick="realizarAgrupamento()">Identificar Grupos</button>
+            </div>
+        </div>
 
-    <script src="nao_supervisionado.js"></script>
+        <div class="card">
+            <h2>Dados dos Atletas</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Peso</th>
+                            <th>Velocidade</th>
+                            <th>Distância</th>
+                            <th>Calorias</th>
+                            <th>Grupo</th>
+                            <th>Perfil Identificado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaClusters"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card chart-card">
+            <h2>Visualização dos Grupos</h2>
+            <canvas id="graficoClusters"></canvas>
+            <div id="legendaGrupos" class="cluster-legend"></div>
+        </div>
+
+        <div class="card analysis-card">
+            <h2>Análise dos Grupos</h2>
+            <div id="analiseGrupos" class="cluster-analysis">
+                <p>Realize o agrupamento para visualizar a análise detalhada de cada grupo.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Sistema Integrado de Análise Esportiva - Desenvolvido para fins educacionais</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
