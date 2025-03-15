@@ -1,101 +1,300 @@
-/* Estilização geral da página */
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f4f4f4;
+/* Base styles */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
 }
 
-/* Estilização do título */
+h1, h2, h3, h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
 h1 {
-    color: #333;
+    font-size: 2rem;
+    text-align: center;
+    margin: 20px 0;
 }
 
-/* Estilização do formulário */
-.formulario {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    margin-bottom: 20px;
+/* Navbar styles */
+.navbar {
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.formulario label {
-    display: block;
-    margin: 10px 0;
+.nav-title {
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
-.formulario input {
-    width: 100px;
-    padding: 5px;
-    border: 1px solid #ccc;
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 5px 10px;
     border-radius: 4px;
-    text-align: center;
+    transition: background-color 0.3s;
 }
 
-/* Estilização dos botões */
+.nav-links a:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.nav-links a.active {
+    background-color: #3498db;
+}
+
+/* Card styles */
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.info-card {
+    background-color: #ebf7fd;
+    border-left: 4px solid #3498db;
+}
+
+.form-card, .settings-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.formulario label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+}
+
+.formulario input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.cluster-settings {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cluster-settings label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.cluster-settings select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+/* Table styles */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: 600;
+}
+
+/* Group color styles */
+tr.grupo-0 { background-color: rgba(255, 87, 51, 0.1); }
+tr.grupo-1 { background-color: rgba(51, 161, 255, 0.1); }
+tr.grupo-2 { background-color: rgba(54, 207, 76, 0.1); }
+tr.grupo-3 { background-color: rgba(255, 51, 233, 0.1); }
+tr.grupo-4 { background-color: rgba(255, 212, 51, 0.1); }
+
+/* Chart styles */
+.chart-card {
+    position: relative;
+    height: 400px;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.cluster-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.legenda-item {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.cor-grupo {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.nome-grupo {
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+/* Analysis styles */
+.cluster-analysis {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.grupo-analise {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+.grupo-0 { border-left: 4px solid #FF5733; }
+.grupo-1 { border-left: 4px solid #33A1FF; }
+.grupo-2 { border-left: 4px solid #36CF4C; }
+.grupo-3 { border-left: 4px solid #FF33E9; }
+.grupo-4 { border-left: 4px solid #FFD433; }
+
+.grupo-estatisticas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.estatistica {
+    text-align: center;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.estatistica .valor {
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: block;
+    color: #3498db;
+}
+
+.grupo-caracteristicas {
+    margin-bottom: 15px;
+}
+
+.grupo-atletas-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.atleta-chip {
+    background-color: #f2f2f2;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+/* Button styles */
 button {
-    background: #007BFF;
+    background-color: #3498db;
     color: white;
     border: none;
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    margin: 10px 0;
-    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background: #0056b3;
+    background-color: #2980b9;
 }
 
-/* Estilização da tabela */
-table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.btn-secondary {
+    background-color: #95a5a6;
 }
 
-th, td {
-    padding: 10px;
-    border: 1px solid #ccc;
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+/* Footer styles */
+footer {
     text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
 }
 
-th {
-    background: #007BFF;
-    color: white;
-}
-
-/* Estilização do gráfico */
-canvas {
-    width: 80% !important;
-    max-width: 600px;
-    margin-top: 20px;
-    background: white;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsividade */
-@media (max-width: 600px) {
-    table {
-        width: 100%;
-    }
-
+/* Responsive adjustments */
+@media (max-width: 768px) {
     .formulario {
-        width: 90%;
-        display: block;
-        margin: auto;
+        grid-template-columns: 1fr;
     }
-
-    input {
-        width: 80%;
+    
+    .cluster-settings {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .grupo-estatisticas {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-card {
+        height: 300px;
     }
 }
