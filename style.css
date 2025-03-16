@@ -155,7 +155,8 @@ tr.grupo-4 { background-color: rgba(255, 212, 51, 0.1); }
 /* Chart styles */
 .chart-card {
     position: relative;
-    height: 400px;
+    height: 450px;
+    padding-bottom: 70px;
 }
 
 canvas {
@@ -167,8 +168,8 @@ canvas {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    margin-top: 50px;
+    gap: 25px;
+    margin-top: 60px;
 }
 
 .legenda-item {
@@ -195,7 +196,7 @@ canvas {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    padding: 20px;
+    padding: 35px;
 }
 
 .grupo-analise {
