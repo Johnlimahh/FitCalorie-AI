@@ -28,6 +28,9 @@ h1 {
     text-align: center;
     margin: 20px 0;
 }
+h2 {
+    marging-bottom: 60px;
+}
 
 /* Navbar styles */
 .navbar {
@@ -164,7 +167,7 @@ canvas {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 40px;
+    gap: 15px;
     margin-top: 50px;
 }
 
