@@ -157,19 +157,12 @@ tr.grupo-4 { background-color: rgba(255, 212, 51, 0.1); }
     position: relative;
     height: 450px;
     padding-bottom: 70px;
-    display: flex;
-    justify-content: center; /* Centraliza o gráfico */
-    align-items: center; /* Alinha verticalmente */
-    overflow: hidden; /* Impede que o gráfico ultrapasse a div */
-    max-width: 100%; /* Garante que não ultrapasse o container */
 }
 
 canvas {
-    width: 100% !important; /* Garante que o gráfico respeite o container */
-    height: auto !important; /* Mantém a proporção correta */
-    max-width: 100%; /* Evita que ultrapasse o container */
+    width: 100%;
+    height: 100%;
 }
-
 
 .cluster-legend {
     display: flex;
