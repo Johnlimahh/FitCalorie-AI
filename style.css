@@ -29,7 +29,7 @@ h1 {
     margin: 20px 0;
 }
 h2 {
-    marging-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 /* Navbar styles */
@@ -195,6 +195,7 @@ canvas {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
+    padding: 20px;
 }
 
 .grupo-analise {
